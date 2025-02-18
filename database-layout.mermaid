@@ -1,11 +1,11 @@
 flowchart LR
-    subgraph UserVerification
+    subgraph 
         A["User Verification"] --> B["Name"]
         A --> C["Email"]
         A --> D["Password"]
     end
 
-    subgraph Details
+    subgraph 
         E["Details"] --> F["Name"]
         E --> G["Description"]
         E --> H["Status"]
@@ -17,7 +17,7 @@ flowchart LR
         E --> N["Updated at"]
     end
 
-    subgraph AssignmentTable
+    subgraph 
         O["Assignment Table"] --> P["Assigned to"]
         O --> Q["Assigned at"]
     end
