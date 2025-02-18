@@ -1,23 +1,17 @@
 flowchart LR
-    subgraph 
-        A["User Verification"] --> B["Name"]
-        A --> C["Email"]
-        A --> D["Password"]
-    end
+    A["User Verification"] --> B["Name"]
+    A --> C["Email"]
+    A --> D["Password"]
 
-    subgraph 
-        E["Details"] --> F["Name"]
-        E --> G["Description"]
-        E --> H["Status"]
-        E --> I["File"]
-        E --> J["Created by"]
-        E --> K["Created at"]
-        E --> L["Deleted at"]
-        E --> M["Completed at"]
-        E --> N["Updated at"]
-    end
+    E["Details"] --> F["Name"]
+    E --> G["Description"]
+    E --> H["Status"]
+    E --> I["File"]
+    E --> J["Created by"]
+    E --> K["Created at"]
+    E --> L["Deleted at"]
+    E --> M["Completed at"]
+    E --> N["Updated at"]
 
-    subgraph 
-        O["Assignment Table"] --> P["Assigned to"]
-        O --> Q["Assigned at"]
-    end
+    O["Assignment Table"] --> P["Assigned to"]
+    O --> Q["Assigned at"]
