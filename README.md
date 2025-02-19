@@ -50,3 +50,4 @@ File Structure ->
 + images/..
 |
 ```
+[Database Layout](/database-layout.mermaid)
