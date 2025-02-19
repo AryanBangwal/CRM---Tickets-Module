@@ -1,10 +1,12 @@
 %%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ffffff', 'edgeLabelBackground': '#ffffff', 'lineColor': '#ffffff'}}}%%
 flowchart TD
-    A["users"] -->|id| A1["name"]
+    A["users"] -->A0["id"] 
+    A --> A1["name"]
     A --> A2["password"]
     A --> A3["email"]
     
-    B["tickets"] -->|id| B1["name"]
+    B["tickets"] -->B0["id"]
+    B --> B1["name"]
     B --> B2["description"]
     B --> B3["status"]
     B --> B4["created_by"]
@@ -13,6 +15,7 @@ flowchart TD
     B --> B7["completed_at"]
     B --> B8["deleted_at"]
     
-    C["assignments"] -->|id| C1["ticket_id"]
+    C["assignments"] -->C0["id"] 
+    C --> C1["ticket_id"]
     C --> C2["assigned_to"]
     C --> C3["assigned_at"]
