@@ -1,23 +1,17 @@
-flowchart LR
-    subgraph UserVerification
-        A["User Verification"] --> B["Name"]
-        A --> C["Email"]
-        A --> D["Password"]
-    end
-
-    subgraph Details
-        E["Details"] --> F["Name"]
-        E --> G["Description"]
-        E --> H["Status"]
-        E --> I["File"]
-        E --> J["Created by"]
-        E --> K["Created at"]
-        E --> L["Deleted at"]
-        E --> M["Completed at"]
-        E --> N["Updated at"]
-    end
-
-    subgraph AssignmentTable
-        O["Assignment Table"] --> P["Assigned to"]
-        O --> Q["Assigned at"]
-    end
+flowchart TD
+    A["users"] -->|id| A1["name"]
+    A --> A2["password"]
+    A --> A3["email"]
+    
+    B["tickets"] -->|id| B1["name"]
+    B --> B2["description"]
+    B --> B3["status"]
+    B --> B4["created_by"]
+    B --> B5["created_at"]
+    B --> B6["updated_at"]
+    B --> B7["completed_at"]
+    B --> B8["deleted_at"]
+    
+    C["assignments"] -->|id| C1["ticket_id"]
+    C --> C2["assigned_to"]
+    C --> C3["assigned_at"]
