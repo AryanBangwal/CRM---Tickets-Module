@@ -2,52 +2,46 @@
 
 File Structure ->
 ```
-+ HTML /
-|		+ Index.html
-|		|
-|		+ Registration.html
-|		|
-|		+ Login.html
-|		|
-|		+ Navbar.html
-|		|
-|		+ header.html
-|		|
-|		+ footer.html
-|		|
-|		+ Updated/Complete.html
-|
-+ CSS /
-|		+ main.css
-|		|
-|		+ Registration.css
-|		|
-|		+ Login.css
-|		|
-|		+ Navbar.css
-|		|
-|		+ header.css
-|		|
-|		+ footer.css
-|		|
-|		+ Updated/Complete.css
-|
-+ JS /
-|		+ main.js
-|		|
-|		+ Registration.js
-|		|
-|		+ Login.js
-|		|
-|		+ Navbar.js
-|		|
-|		+ header.js
-|		|
-|		+ footer.js
-|		|
-|		+ Updated/Complete.js
-|
-+ images/..
-|
+/auth           # For Authentication
+│── login.html 
+│── login.css   
+│── login.js           
+│── register.html    
+│── register.css       
+│── register.js         
+/dashboard      # Overview of Tickets,User Profile & Account Info
+│── dashboard.html    
+│── dashboard.css       
+│── dashboard.js       
+/tickets        # For tickets
+│── tickets.html        
+│── tickets.css     
+│── tickets.js          
+/users          # See a list of registered users 
+│── users.html          
+│── users.css           
+│── users.js            
+/components     # Could be used anywhere
+│── navbar.html        
+│── navbar.css         
+│── navbar.js         
+│── footer.html         
+│── footer.css          
+/utils          # Reusable helper functions
+│── validation.js       # Form validation 
+│── auth.js             # e.g. checking login status
+│── permissions.js      # To see if only admin is there or not
+/assets
+│── /css
+│   ├── main.css      
+│── /js
+│   ├── main.js         
+│── /images
+│   ├── logo.png        # Images
+/config
+│── env.js              # Environment variables
+│── constants.js        
+│── README.md           
+│── index.html          
 ```
 [Database Layout](/database-layout.mermaid)
