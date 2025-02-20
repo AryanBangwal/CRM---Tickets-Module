@@ -14,7 +14,11 @@ File Structure ->
 │── dashboard.css       
 │── dashboard.js       
 /tickets        # For tickets
-│── tickets.html        
+│── index.html    
+│── create.html
+│── edit.html
+│── assignment.html
+│── status.html
 │── tickets.css     
 │── tickets.js          
 /users          # See a list of registered users 
@@ -41,7 +45,6 @@ File Structure ->
 /config
 │── env.js              # Environment variables
 │── constants.js        
-│── README.md           
-│── index.html          
+│── README.md                     
 ```
 [Database Layout](/database-layout.mermaid)
