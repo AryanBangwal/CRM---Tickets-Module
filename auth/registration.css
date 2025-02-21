@@ -15,7 +15,7 @@ form {
     width: 300px;
 }
 
-#cred {
+#credentials {
     margin-bottom: 15px;
     margin-right: 20px;
 }
@@ -26,20 +26,8 @@ label {
     margin-top: 10px;
 }
 
-input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-input[type="email"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+input[type="text"],
+input[type="email"],
 input[type="password"] {
     width: 100%;
     padding: 8px;
@@ -60,6 +48,12 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #b30000;
+    background-color: #0056b3; /* Changed to a darker blue on hover */
 }
 
+/* Responsive Design */
+@media (max-width: 400px) {
+    form {
+        width: 90%; /* Make form width responsive */
+    }
+}

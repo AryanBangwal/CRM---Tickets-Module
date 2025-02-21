@@ -8,19 +8,24 @@
 </head>
 <body>
     <div>
-        <form>
-            <div id="cred">
-                <label for="fname">First name:</label><br>
-                <input type="text" id="use" name="fname"><br>
-                <label for="nemail">Email:</label><br>
-                <input type="email" id="use" name="nemail"><br><br>
-                <label for="npass">Password</label><br>
-                <input type="password" id="use" name="npass"><br><br>
+        <form id="registrationForm" class="form">
+            <div id="credentials">
+                <div>
+                    <label for="fname">First name:</label><br>
+                    <input type="text" id="names" name="fname"><br>
+                </div>
+                <div>
+                    <label for="nemail">Email:</label><br>
+                    <input type="email" id="emails" name="nemail"><br><br>
+                </div>
+                <div>
+                    <label for="npass">Password</label><br>
+                    <input type="password" id="pass" name="npass"><br><br>
+                </div>
             </div>
             <input type="submit" value="Submit">
         </form> 
     </div>
+    <script src="registration.js"></script>
 </body>
 </html>
-
-<!-- /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,}$/  -->
