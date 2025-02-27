@@ -1,4 +1,4 @@
-body {
+.bformat {
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
@@ -7,7 +7,7 @@ body {
     margin: 0;
 }
 
-form {
+.forms {
     background: white;
     padding: 20px;
     border-radius: 15px;
@@ -20,15 +20,13 @@ form {
     margin-right: 20px;
 }
 
-label {
+.labels {
     font-weight: bold;
     display: block;
     margin-top: 10px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+.inputs {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
@@ -36,7 +34,7 @@ input[type="password"] {
     border-radius: 4px;
 }
 
-input[type="submit"] {
+.submitButton{
     width: 100%;
     padding: 10px;
     background-color: #007BFF;
@@ -47,7 +45,7 @@ input[type="submit"] {
     font-size: 16px;
 }
 
-input[type="submit"]:hover {
+.submitButton:hover {
     background-color: #0056b3; /* Changed to a darker blue on hover */
 }
 
