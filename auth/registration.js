@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     form.addEventListener("submit", function (event) {
-        event.preventDefault();
+        // event.preventDefault();
         const name = document.getElementById("names").value.trim();
         const email = document.getElementById("emails").value.trim();
         const password = document.getElementById("pass").value;
