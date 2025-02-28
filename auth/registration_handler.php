@@ -8,20 +8,26 @@
 <body>
     <?php require_once '../utils/connection.php';
     
-        $name=$_REQUEST["fname"];
-        $email=$_REQUEST["nemail"];
-        $pass=$_REQUEST["npass"];
-      
+        $name = $_REQUEST["fname"];
+        $email = $_REQUEST["nemail"];
+        $pass = password_hash($_REQUEST["npass"], PASSWORD_DEFAULT); 
+        if($name == "" || $email == "" || $pass == "")
+        {
+            echo "Cannot be empty";
+            ?>
+            <a href="registration.html">Try again</a>
+            <?php
+            die();
+        }
         // $query =sprintf( "INSERT INTO users (`name`,`email`,`password`, `role`) VALUES ('%s', '%s', '%s', '%s')", $name,$email,$pass, 'author');
-         $query ="INSERT INTO users (`name`,`email`,`password`) VALUES ( '$name','$email','$pass')";
+         $query ="INSERT INTO users (`name`,`email`,`password`) VALUES ('$name','$email','$pass')";
          
          $query2 = "SELECT * FROM users WHERE email = '$email'";
          $results = mysqli_query($conn, $query2);
          $rows = mysqli_num_rows($results);
                   
          if ($rows === 0) 
-         {  // Meaning record does not exist with “some email”
-            // Insert query
+         {  
             if ($conn->query($query) === TRUE) 
             {
                 echo "New record created successfully";
