@@ -37,22 +37,3 @@
         width: 90%; /* Make form width responsive */
     }
 }
-
-.sudo {
-
-    padding: 0px;
-    background-color: red;
-    transition: transform .2s;
-    width: 160px;
-    height: 160px;
-    margin: 0 auto;
-    border-radius: 29px;
-}
-
-.sudo:hover {
-    -ms-transform: scale(4.6);
-    /* IE 9 */
-    -webkit-transform: scale(1.5);
-    /* Safari 3-8 */
-    transform: scale(1.5);
-}
