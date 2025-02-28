@@ -9,18 +9,18 @@
 </head>
 <body class="body">
     <div>
-        <form id="registrationForm" class="forms">
+        <form id="registrationForm" class="forms" action="login_handler.php" method="post">
             <div>
-                <div>
-                    <label for="fname" class="labels">First name:</label><br>
-                    <input type="text" id="nameLogin" name="fname" class="inputs"><br>
-                </div>
+                <div class="gap">
+                    <label for="nemail" class="labels">Email:</label><br>
+                    <input type="email" id="emails" name="nemail" class="inputs"><br><br>
+                </div class="gap">
                     <div class="gap">
                     <label for="npass" class="labels">Password</label><br>
                     <input type="password" id="passLogin" name="npass" class="inputs"><br><br>
                 </div>
-                <p>Forgot password? <a href="forgot.html">click</a></p>
-                <p>Not Registered? <a href="login.html">Login</a></p>
+                <p>Forgot password? <a class="sudo" href="forgot.html">click</a></p>
+                <p>Not Registered? <a class="sudo" href="registration.html">Register Now</a></p>
             </div>
             <button class="submitButton">Login</button>
         </form> 
