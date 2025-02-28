@@ -4,7 +4,7 @@ require_once '../utils/connection.php';
 
 if (!isset($_SESSION['user_id'])) 
 {
-    echo "<script>alert('Please log in first!'); window.location.href='login.html';</script>";
+    echo "<script>alert('Please log in first!'); window.location.href='../auth/login.html';</script>";
     exit();
 }
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     if (mysqli_query($conn, $query)) 
     {
-        echo "<script>alert('Ticket Created Successfully!'); window.location.href='tickets.php';</script>";
+        echo "<script>alert('Ticket Created Successfully!'); window.location.href='view.php';</script>";
     } 
     else 
     {

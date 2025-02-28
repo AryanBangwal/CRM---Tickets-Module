@@ -1,23 +1,23 @@
 <?php
 session_start(); 
 require_once '../utils/connection.php';
-
 $email = $_REQUEST['nemail'];
 $password = $_REQUEST['npass'];
-$query = "SELECT id, email, password FROM users WHERE email = '$email';";
+
+$query = "SELECT id, name, email, password FROM users WHERE email = '$email';";
 $results = mysqli_query($conn, $query);
 
 if ($results->num_rows > 0) 
 {
     $data = $results->fetch_assoc();
-
- 
+    
     if (password_verify($password, $data['password'])) 
     {
-        $_SESSION['user_id'] = $data['id']; // Store user ID in session
-        $_SESSION['user_email'] = $data['email']; 
+        $_SESSION['user_id'] = $data['id']; 
+        $_SESSION['user_email'] = $data['email'];
+        $_SESSION['name'] = $data['name'];
 
-        echo "<script>alert('Login successful'); window.location.href='dashboard.php';</script>";
+        echo "<script>alert('Login successful'); window.location.href='../tickets/dashboard.php';</script>";
         exit();
     } 
     else 
@@ -32,4 +32,3 @@ else
     exit();
 }
 ?>
- 

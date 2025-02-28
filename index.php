@@ -1,4 +1,4 @@
 <?php 
-header("Location: ./tickets/create.php");
+header("Location: ./auth/login.html");
 die();
 ?>
