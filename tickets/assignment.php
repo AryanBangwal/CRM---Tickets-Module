@@ -44,7 +44,7 @@ $user_result = mysqli_query($conn, $user_query);
                 <select name="assigned_to" id="assigned_to" class="form-select" required>
                     <option value="">-- Select User --</option>
                     <?php while ($user = mysqli_fetch_assoc($user_result)): ?>
-                        <option value="<?= $user['id']; ?>"><?= htmlspecialchars($user['name']); ?></option>
+                        <option value="<?= $user['id']; ?>"><?= htmlspecialchars($user['id']); ?></option>
                     <?php endwhile; ?>
                 </select>
             </div>
