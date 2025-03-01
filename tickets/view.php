@@ -9,14 +9,14 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Fetch tickets where the user is the creator
+// Fetch tickets where the user is the creator (need to remove cmment before merging)
 $query = "SELECT * FROM tickets WHERE created_by = ? ORDER BY created_at DESC";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Fetch assigned tickets
+// Fetch assigned tickets (need to remove cmment before merging)
 $assigned_query = "SELECT t.* FROM tickets t 
                    JOIN assignments a ON t.id = a.ticket_id 
                    WHERE a.assigned_to = ? 

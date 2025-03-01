@@ -8,12 +8,10 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Fetch tickets created by the logged-in user
 $user_id = $_SESSION['user_id'];
 $ticket_query = "SELECT id, name FROM tickets WHERE created_by = $user_id";
 $ticket_result = mysqli_query($conn, $ticket_query);
 
-// Fetch all users to assign tickets
 $user_query = "SELECT id, name FROM users WHERE id != $user_id";
 $user_result = mysqli_query($conn, $user_query);
 ?>

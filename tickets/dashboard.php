@@ -20,7 +20,7 @@ if (!isset($_SESSION['user_id']))
 
 <div class="dashboard-container">
     <div class="dashboard-header">
-        <h1 class="dashboard-title">Welcome, <?php echo $_SESSION['user_email'];  ?>!</h1> <!-- need to display name instead if email -->
+        <h1 class="dashboard-title">Welcome, <?php echo $_SESSION['user_email'];  ?>!</h1> <!--Note* need to display name instead if email -->
         <p class="dashboard-subtext">Manage your tickets efficiently.</p>
     </div>
 
