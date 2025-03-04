@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if assignment already exists
     $check_query = "SELECT * FROM assignments WHERE ticket_id = $ticket_id AND assigned_to = $assigned_to";
     $check_result = mysqli_query($conn, $check_query);
-
+    
     if (mysqli_num_rows($check_result) == 0) 
     {
         $query = "INSERT INTO assignments (ticket_id, assigned_to) VALUES ($ticket_id, $assigned_to)";

@@ -9,10 +9,12 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$ticket_query = "SELECT id, name FROM tickets WHERE created_by = $user_id";
+$ticketid=$_GET['id'];
+$ticket_query = "SELECT id, name, description FROM tickets WHERE id = $ticketid";
 $ticket_result = mysqli_query($conn, $ticket_query);
+$ticket = mysqli_fetch_assoc($ticket_result);
 
-$user_query = "SELECT id, name FROM users WHERE id != $user_id";
+$user_query = "SELECT id, name,email FROM users WHERE id != $user_id";
 $user_result = mysqli_query($conn, $user_query);
 ?>
 
@@ -29,22 +31,26 @@ $user_result = mysqli_query($conn, $user_query);
         <h2 class="heading">Assign Ticket</h2>
 
         <form action="assignment_handler.php" method="POST" class="assign-form">
-            <div class="form-group">
-                <label for="ticket_id" class="form-label">Select Ticket:</label>
-                <select name="ticket_id" id="ticket_id" class="form-select" required>
-                    <option value="">-- Select Ticket --</option>
-                    <?php while ($ticket = mysqli_fetch_assoc($ticket_result)): ?>
-                        <option value="<?= $ticket['id']; ?>"><?= htmlspecialchars($ticket['name']); ?></option>
-                    <?php endwhile; ?>
-                </select>
-            </div>
+
+        <div class="form-group">
+            <label class="form-label"><b>Ticket name:</b></label>
+            <p class="form-static"><?php echo htmlspecialchars($ticket['name']); ?></p>
+            <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Description:</label>
+            <p class="form-static"><?php echo htmlspecialchars($ticket['description']); ?></p>
+        </div>
 
             <div class="form-group">
                 <label for="assigned_to" class="form-label">Assign to:</label>
                 <select name="assigned_to" id="assigned_to" class="form-select" required>
                     <option value="">-- Select User --</option>
                     <?php while ($user = mysqli_fetch_assoc($user_result)): ?>
-                        <option value="<?= $user['id']; ?>"><?= htmlspecialchars($user['id']); ?></option>
+                        <option value="<?= $user['id'] ; ?>">
+                            <?= htmlspecialchars($user['name'] . ' - ' . $user['email']); ?>
+                        </option>
                     <?php endwhile; ?>
                 </select>
             </div>

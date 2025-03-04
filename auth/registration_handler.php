@@ -30,7 +30,8 @@
          {  
             if ($conn->query($query) === TRUE) 
             {
-                echo "New record created successfully";
+                echo "<script>window.location.href='../tickets/dashboard.php';</script>";
+                exit();
             } 
             else 
             {

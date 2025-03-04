@@ -17,7 +17,7 @@ if ($results->num_rows > 0)
         $_SESSION['user_email'] = $data['email'];
         $_SESSION['name'] = $data['name'];
 
-        echo "<script>alert('Login successful'); window.location.href='../tickets/dashboard.php';</script>";
+        echo "<script>window.location.href='../tickets/dashboard.php';</script>";
         exit();
     } 
     else 

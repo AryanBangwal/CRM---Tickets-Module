@@ -1,4 +1,3 @@
-<!-- Note* Code Not working properly-->
 <?php
 session_start();
 require_once '../utils/connection.php';
@@ -14,16 +13,13 @@ if (!isset($_GET['id'])) {
     echo "<script>alert('Invalid ticket ID'); window.location.href='view.php';</script>";
     exit();
 }
-
-$ticket_id = intval($_GET['id']);
+    
+$ticket_id = $_GET['id'];
 
 // Fetch ticket details
-$query = "SELECT * FROM tickets WHERE id = ? AND created_by = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("ii", $ticket_id, $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$ticket = $result->fetch_assoc();
+$query = "SELECT * FROM tickets WHERE id = $ticket_id";
+$ticket_result = mysqli_query($conn, $query);
+$ticket = mysqli_fetch_assoc($ticket_result);
 
 if (!$ticket) {
     echo "<script>alert('Ticket not found or access denied'); window.location.href='view.php';</script>";
@@ -31,19 +27,26 @@ if (!$ticket) {
 }
 
 // Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+{
     $name = trim($_POST['name']);
     $description = trim($_POST['description']);
     $status = $_POST['status'];
 
-    $update_query = "UPDATE tickets SET name = ?, description = ?, status = ?, updated_at = NOW() WHERE id = ?";
-    $update_stmt = $conn->prepare($update_query);
-    $update_stmt->bind_param("sssi", $name, $description, $status, $ticket_id);
+    $name = mysqli_real_escape_string($conn, $name);
+    $description = mysqli_real_escape_string($conn, $description);
+    $status = mysqli_real_escape_string($conn, $status);
 
-    if ($update_stmt->execute()) {
+    $update_query = "UPDATE tickets SET name = '$name', description = '$description', status = '$status', updated_at = NOW() WHERE id = '$ticket_id'";
+    // var_dump($update_query);
+    // die();
+    if ($conn->query($update_query) === TRUE) 
+    {
         echo "<script>alert('Ticket updated successfully'); window.location.href='view.php';</script>";
-    } else {
-        echo "<script>alert('Error updating ticket');</script>";
+    } 
+    else 
+    {
+        echo "<script>alert('Error updating ticket: " . $conn->error . "');</script>";
     }
 }
 ?>
@@ -75,12 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label class="form-label">Status:</label>
                 <select name="status" class="form-select">
-                    <option value="open" <?php echo ($ticket['status'] == 'open') ? 'selected' : ''; ?>>Open</option>
+                    <option value="pending" <?php echo ($ticket['status'] == 'pending') ? 'selected' : ''; ?>>Pending</option>
                     <option value="in_progress" <?php echo ($ticket['status'] == 'in_progress') ? 'selected' : ''; ?>>In Progress</option>
-                    <option value="closed" <?php echo ($ticket['status'] == 'closed') ? 'selected' : ''; ?>>Closed</option>
+                    <option value="onhold" <?php echo ($ticket['status'] == 'onhold') ? 'selected' : ''; ?>>on hold</option>
+                    <option value="completed" <?php echo ($ticket['status'] == 'completed') ? 'selected' : ''; ?>>Completed</option>
                 </select>
             </div>
-
             <button type="submit" class="submit-btn">Update Ticket</button>
         </form>
 
