@@ -6,48 +6,60 @@
     <title>Document</title>
 </head>
 <body>
-    <?php require_once '../utils/connection.php';
-    
-        $name = $_REQUEST["fname"];
-        $email = $_REQUEST["nemail"];
-        $pass = password_hash($_REQUEST["npass"], PASSWORD_DEFAULT); 
-        if($name == "" || $email == "" || $pass == "")
-        {
-            echo "Cannot be empty";
-            ?>
-            <a href="registration.html">Try again</a>
-            <?php
-            die();
-        }
-        // $query =sprintf( "INSERT INTO users (`name`,`email`,`password`, `role`) VALUES ('%s', '%s', '%s', '%s')", $name,$email,$pass, 'author');
-         $query ="INSERT INTO users (`name`,`email`,`password`) VALUES ('$name','$email','$pass')";
-         
-         $query2 = "SELECT * FROM users WHERE email = '$email'";
-         $results = mysqli_query($conn, $query2);
-         $rows = mysqli_num_rows($results);
-                  
-         if ($rows === 0) 
-         {  
-            if ($conn->query($query) === TRUE) 
-            {
-                echo "<script>window.location.href='../tickets/dashboard.php';</script>";
-                exit();
-            } 
-            else 
-            {
-                echo "Error: " . $query . "<br>" . $conn->error;
-            }
-         }
-        else
-        {
-            echo "Already present";
-            ?>
-            <a href="registration.html">Try again</a>
-            <?php
+<?php
+require_once '../utils/connection.php';
 
-        }
-        // var_dump($_REQUEST);
-        // die();
-    ?>
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $name = mysqli_real_escape_string($conn, trim($_POST["fname"]));
+    $email = mysqli_real_escape_string($conn, trim($_POST["nemail"]));
+    $password = trim($_POST["npass"]); 
+    if (empty($name) || empty($email) || empty($password)) {
+        echo "Cannot be empty";
+        echo '<a href="registration.html">Try again</a>';
+        exit();
+    }
+
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    
+    $query_check_both ="SELECT id FROM users WHERE name= '$name' AND email = '$email'";
+    $result_both = mysqli_query($conn, $query_check_both);
+    if (mysqli_num_rows($result_both) > 0) {
+        ?><script>alert("Name and email already exists.");window.location.href='registration.html'</script>
+        <?php
+        exit();
+    }
+
+    $query_check_email = "SELECT id FROM users WHERE email = '$email'";
+    $result_email = mysqli_query($conn, $query_check_email);
+
+    if (mysqli_num_rows($result_email) > 0) {
+        ?><script>alert("Email already exists.");window.location.href='registration.html'</script>
+        <?php
+        exit();
+    }
+
+    $query_check_name = "SELECT id FROM users WHERE name = '$name'";
+    $result_name = mysqli_query($conn, $query_check_name);
+
+    if (mysqli_num_rows($result_name) > 0) {
+       
+        ?><script>alert("Name already exists.");window.location.href='registration.html'</script>
+        <?php
+        exit();
+    }
+
+
+    $query_insert = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
+    if (mysqli_query($conn, $query_insert)) {
+        echo "<script>window.location.href='../tickets/dashboard.php';</script>";
+        exit();
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
+}
+mysqli_close($conn);
+?>
+
+
 </body>
 </html>

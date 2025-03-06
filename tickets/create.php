@@ -2,14 +2,12 @@
 session_start();
 require_once '../utils/connection.php';
 
-if (!isset($_SESSION['user_id'])) 
-{
+if (!isset($_SESSION['user_id'])) {
     echo "<script>alert('Please log in first!'); window.location.href='../auth/login.html';</script>";
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') 
-{
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $status = mysqli_real_escape_string($conn, $_POST['status']);
@@ -17,16 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $created_at = date('Y-m-d H:i:s');
     $updated_at = $created_at;
 
-    
     $query = "INSERT INTO tickets (name, description, status, created_by, created_at, updated_at, completed_at, deleted_at)
               VALUES ('$name', '$description', '$status', '$created_by', '$created_at', '$updated_at', NULL, NULL)";
 
-    if (mysqli_query($conn, $query)) 
-    {
+    if (mysqli_query($conn, $query)) {
         echo "<script>alert('Ticket Created Successfully!'); window.location.href='view.php';</script>";
-    } 
-    else 
-    {
+    } else {
         echo "Error: " . mysqli_error($conn);
     }
 }
@@ -39,8 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Ticket</title>
     <link rel="stylesheet" href="tickets.css">
+    <link rel="stylesheet" href="../utils/navbar.css">
 </head>
 <body class="body">
+<?php require_once '../utils/navbar2.html';?>
     <div class="container">
         <h2 class="heading">Create New Ticket</h2>
         <form action="" method="post" class="ticket-form">

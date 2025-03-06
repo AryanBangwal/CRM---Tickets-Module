@@ -2,7 +2,6 @@
 session_start();
 require_once '../utils/connection.php';
 
-// Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
     echo "<script>alert('Please log in first.'); window.location.href='../auth/login.html';</script>";
     exit();
@@ -25,22 +24,25 @@ $user_result = mysqli_query($conn, $user_query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assign Ticket</title>
     <link rel="stylesheet" href="assignment.css">
+    <link rel="stylesheet" href="../utils/navbar.css">
 </head>
 <body class="body">
+<?php require_once '../utils/navbar2.html';
+    ?>
     <div class="container">
         <h2 class="heading">Assign Ticket</h2>
 
         <form action="assignment_handler.php" method="POST" class="assign-form">
 
         <div class="form-group">
-            <label class="form-label"><b>Ticket name:</b></label>
-            <p class="form-static"><?php echo htmlspecialchars($ticket['name']); ?></p>
+            <label class="form-label"><b>Ticket name: <?php echo htmlspecialchars($ticket['name']); ?></b></label>
             <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
         </div>
 
         <div class="form-group">
             <label class="form-label">Description:</label>
-            <p class="form-static"><?php echo htmlspecialchars($ticket['description']); ?></p>
+            <div class="ticket-description"><?php echo nl2br(htmlspecialchars($ticket['description'])); ?></div>
+
         </div>
 
             <div class="form-group">

@@ -16,7 +16,6 @@ if (!isset($_GET['id'])) {
     
 $ticket_id = $_GET['id'];
 
-// Fetch ticket details
 $query = "SELECT * FROM tickets WHERE id = $ticket_id";
 $ticket_result = mysqli_query($conn, $query);
 $ticket = mysqli_fetch_assoc($ticket_result);
@@ -26,7 +25,6 @@ if (!$ticket) {
     exit();
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') 
 {
     $name = trim($_POST['name']);
@@ -38,8 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $status = mysqli_real_escape_string($conn, $status);
 
     $update_query = "UPDATE tickets SET name = '$name', description = '$description', status = '$status', updated_at = NOW() WHERE id = '$ticket_id'";
-    // var_dump($update_query);
-    // die();
+
     if ($conn->query($update_query) === TRUE) 
     {
         echo "<script>alert('Ticket updated successfully'); window.location.href='view.php';</script>";
@@ -58,9 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Ticket</title>
     <link rel="stylesheet" href="edit.css">
+    <link rel="stylesheet" href="../utils/navbar.css">
 </head>
 <body class="body">
-
+<?php require_once '../utils/navbar2.html';
+    ?>
     <div class="container">
         <h2 class="heading">Edit Ticket</h2>
 
@@ -79,15 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 <label class="form-label">Status:</label>
                 <select name="status" class="form-select">
                     <option value="pending" <?php echo ($ticket['status'] == 'pending') ? 'selected' : ''; ?>>Pending</option>
-                    <option value="in_progress" <?php echo ($ticket['status'] == 'in_progress') ? 'selected' : ''; ?>>In Progress</option>
+                    <option value="inprogress" <?php echo ($ticket['status'] == 'inprogress') ? 'selected' : ''; ?>>In Progress</option>
                     <option value="onhold" <?php echo ($ticket['status'] == 'onhold') ? 'selected' : ''; ?>>on hold</option>
                     <option value="completed" <?php echo ($ticket['status'] == 'completed') ? 'selected' : ''; ?>>Completed</option>
                 </select>
             </div>
             <button type="submit" class="submit-btn">Update Ticket</button>
         </form>
-
-        <a href="view.php" class="back-btn">Back to Tickets</a>
     </div>
 
 </body>

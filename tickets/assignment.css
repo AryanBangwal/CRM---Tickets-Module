@@ -12,10 +12,17 @@
     max-width: 400px;
     margin: 50px auto;
     padding: 20px;
-    background: #9b9a9a;
+    background: #bdbaba;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
+
+.ticket-description {
+    white-space: pre-wrap;
+    word-wrap: break-word; 
+    max-width: 100%; 
+}
+
 
 .heading {
     text-align: center;
@@ -31,7 +38,7 @@
 .form-group {
     margin-bottom: 15px;
     margin-right: 10px;
-    background-color: #9b9a9a;
+    background-color: #bdbaba;
 }
 
 .form-label {

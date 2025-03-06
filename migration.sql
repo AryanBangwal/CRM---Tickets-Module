@@ -40,6 +40,15 @@ CREATE TABLE IF NOT EXISTS ticket_missing_fields (
 
 
 -- Alter
-Alter Table users drop column role;
+-- Alter Table users drop column role;
+
+-- Alter table tickets add new column
+ALTER TABLE tickets 
+ADD COLUMN assignee_id INT REFERENCES users(id) ON DELETE SET NULL AFTER description;
+
+
+
+
+
 
 
