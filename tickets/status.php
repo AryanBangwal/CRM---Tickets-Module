@@ -3,7 +3,8 @@ session_start();
 require_once '../utils/connection.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../auth/login.html");
+    $_SESSION['error'] = "Please log in first.";
+    header("Location: ../auth/login.html"); 
     exit();
 }
 

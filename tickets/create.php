@@ -3,9 +3,11 @@ session_start();
 require_once '../utils/connection.php';
 
 if (!isset($_SESSION['user_id'])) {
-    echo "<script>alert('Please log in first!'); window.location.href='../auth/login.html';</script>";
+    $_SESSION['error'] = "Please log in first.";
+    header("Location: ../auth/login.html"); 
     exit();
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = mysqli_real_escape_string($conn, $_POST['name']);

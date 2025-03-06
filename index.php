@@ -4,7 +4,7 @@ session_start();
 $routes = [
     "" => "tickets/dashboard.php",
     "dashboard" => "tickets/dashboard.php",
-    "login" => "auth/login.php",
+    "login" => "auth/login.html",
     "register" => "auth/register.php",
     "success" => "auth/success.php",
     "assignment" => "tickets/assignment.php",
@@ -16,12 +16,16 @@ $routes = [
 
 $route = isset($_GET['route']) ? trim($_GET['route'], '/') : '';
 
-if (array_key_exists($route, $routes)) 
-{
+$protectedRoutes = ["dashboard", "assignment", "create", "edit", "status", "view"];
+
+if (in_array($route, $protectedRoutes) && !isset($_SESSION['user_id'])) {
+    header("Location: index.php?route=login");
+    exit;
+}
+
+if (array_key_exists($route, $routes)) {
     require $routes[$route];
-} 
-else 
-{
-    require "views/404.php"; 
+} else {
+    require "views/404.php";
 }
 ?>

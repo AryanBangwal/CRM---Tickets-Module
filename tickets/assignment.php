@@ -3,9 +3,11 @@ session_start();
 require_once '../utils/connection.php';
 
 if (!isset($_SESSION['user_id'])) {
-    echo "<script>alert('Please log in first.'); window.location.href='../auth/login.html';</script>";
+    $_SESSION['error'] = "Please log in first.";
+    header("Location: ../auth/login.html"); 
     exit();
 }
+
 
 $user_id = $_SESSION['user_id'];
 $ticketid=$_GET['id'];
