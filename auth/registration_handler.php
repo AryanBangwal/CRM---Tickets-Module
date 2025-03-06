@@ -51,9 +51,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $query_insert = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashed_password')";
     if (mysqli_query($conn, $query_insert)) {
-        echo "<script>window.location.href='../tickets/dashboard.php';</script>";
+
+        $user_id = mysqli_insert_id($conn); 
+    
+        session_start();
+
+        $_SESSION['user_id'] = $user_id; 
+        $_SESSION['user_email'] = $email;
+        $_SESSION['name'] = $name;
+    
+        header("Location: ./success.php");
         exit();
-    } else {
+    }
+    else {
         echo "Error: " . mysqli_error($conn);
     }
 }

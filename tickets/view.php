@@ -54,31 +54,35 @@ $user_result = mysqli_query($conn, $user_query);
                 </tr>
             </thead>
             <tbody>
-                <?php while ($ticket = mysqli_fetch_assoc($result)) { 
-                    $assignee_id = $ticket['assignee_id'];
-                    $assignee_query = "SELECT name FROM users WHERE id = ?";
-                    $assignee_stmt = $conn->prepare($assignee_query);
-                    $assignee_stmt->bind_param("i", $assignee_id);
-                    $assignee_stmt->execute();
-                    $assignee_result = $assignee_stmt->get_result();
-                    $assignee = $assignee_result->fetch_assoc();
-
+                <?php if ($result->num_rows > 0) { ?>
+                    <?php while ($ticket = mysqli_fetch_assoc($result)) { 
+                        $assignee_id = $ticket['assignee_id'];
+                        $assignee_query = "SELECT name FROM users WHERE id = ?";
+                        $assignee_stmt = $conn->prepare($assignee_query);
+                        $assignee_stmt->bind_param("i", $assignee_id);
+                        $assignee_stmt->execute();
+                        $assignee_result = $assignee_stmt->get_result();
+                        $assignee = $assignee_result->fetch_assoc();
                     ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($ticket['name']); ?></td>
+                            <td><?php echo strlen(htmlspecialchars($ticket['description'])) > 100 ? substr(htmlspecialchars($ticket['description']), 0, 100) . '...' : htmlspecialchars($ticket['description']); ?></td>
+                            <td><?php echo $assignee ? htmlspecialchars($assignee['name']) : 'Unassigned'; ?></td>
+                            <td><?php echo ucfirst($ticket['status']); ?></td>
+                            <td><?php echo date("Y-m-d", strtotime($ticket['created_at'])); ?></td>
+                            <td>
+                                <a href="edit.php?id=<?php echo $ticket['id']; ?>" class="edit-btn">Edit</a>
+                                <a href="assignment.php?id=<?php echo $ticket['id']; ?>" class="assign-btn">Assign</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                <?php } else { ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($ticket['name']); ?></td>
-                        <td><?php echo strlen(htmlspecialchars($ticket['description'])) > 100 
-                            ? substr(htmlspecialchars($ticket['description']), 0, 100) . '...' 
-                            : htmlspecialchars($ticket['description']); ?></td>
-                        <td><?php echo $assignee ? htmlspecialchars($assignee['name']) : 'Unassigned'; ?></td>
-                        <td><?php echo ucfirst($ticket['status']); ?></td>
-                        <td><?php echo date("Y-m-d", strtotime($ticket['created_at'])); ?></td>
-                        <td>
-                            <a href="edit.php?id=<?php echo $ticket['id']; ?>" class="edit-btn">Edit</a>
-                            <a href="assignment.php?id=<?php echo $ticket['id']; ?>" class="assign-btn">Assign</a>
-                        </td>
+                        <td colspan="6" class="no-data">No tickets created yet</td>
                     </tr>
                 <?php } ?>
             </tbody>
+
 
         </table>
 

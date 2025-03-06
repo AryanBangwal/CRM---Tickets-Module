@@ -29,7 +29,16 @@ if (!isset($_SESSION['user_id']))
         <a href="view.php" class="dashboard-btn">View Tickets</a>
     </div>
 
-    <a href="logout.php" class="logout-btn">Logout</a>
+    <a id="logout" href="logout.php" class="logout-btn">Logout</a>
+    <script>
+    document.getElementById("logout").addEventListener("click", function(event) 
+    {
+        if (!confirm("Are you sure you want to log out?")) 
+        {
+            event.preventDefault(); 
+        }
+    });
+</script>
 </div>
 </body>
 </html>
