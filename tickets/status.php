@@ -10,17 +10,18 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-if (!isset($_GET['id'])) {
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     echo "<div class='error-message'>Invalid request.</div>";
     exit();
 }
 
-$ticket_id = $_GET['id'];
+$ticket_id = intval($_GET['id']); 
 
-
-$query = "SELECT * FROM tickets t JOIN assignments a ON t.id = a.ticket_id WHERE t.id = ? AND a.assigned_to = ?";
+$query = "SELECT t.* FROM tickets t 
+          LEFT JOIN assignments a ON t.id = a.ticket_id 
+          WHERE t.id = ? AND (t.created_by = ? OR a.assigned_to = ?)";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("ii", $ticket_id, $user_id);
+$stmt->bind_param("iii", $ticket_id, $user_id, $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -30,25 +31,30 @@ if ($result->num_rows === 0) {
 }
 
 $ticket = $result->fetch_assoc();
+$stmt->close();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $new_status = $_POST['status'];
-    $update_query = "UPDATE tickets SET status = '$new_status' WHERE id = '$ticket_id'";
-   
-    $update_result = mysqli_query($conn, $update_query);
+    $new_status = trim($_POST['status']);
     
-    if ($update_result) {
-        $fetch_query = "SELECT * FROM tickets WHERE id = $ticket_id";
-        $fetch_result = mysqli_query($conn, $fetch_query);
-        $ticket = mysqli_fetch_assoc($fetch_result);
+    $allowed_statuses = ['pending', 'inprogress', 'onhold', 'completed'];
+    if (!in_array($new_status, $allowed_statuses)) {
+        echo "<div class='error-message'>Invalid status selection.</div>";
+        exit();
+    }
 
+    $update_query = "UPDATE tickets SET status = ?, updated_at = NOW() WHERE id = ?";
+    $update_stmt = $conn->prepare($update_query);
+    $update_stmt->bind_param("si", $new_status, $ticket_id);
+    $update_stmt->execute();
+
+    if ($update_stmt->affected_rows >= 0) { 
         header("Location: view.php");
         exit();
     } else {
         echo "<div class='error-message'>Error updating status.</div>";
     }
+    $update_stmt->close();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -61,21 +67,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../utils/navbar.css">
 </head>
 <body class="body-container">
-    
-<?php require_once '../utils/navbar2.html';?>
+
+<?php require_once '../utils/navbar2.html'; ?>
     <div class="form-container">
         <h2 class="form-heading">Update Ticket Status</h2>
         <p class="ticket-info"><strong>Ticket:</strong> <?php echo htmlspecialchars($ticket['name']); ?></p>
-        <p class="ticket-info"><strong>Description:</strong> <?php echo htmlspecialchars($ticket['description']); ?></p>
+        <p class="ticket-info"><strong>Description:</strong> <?php echo nl2br(htmlspecialchars($ticket['description'])); ?></p>
         <form method="POST" class="status-form">
-        <label for="status" class="form-label">
-            Status: <?php echo $ticket['status'] ?? ''; ?>
-        </label>
-
+            <label for="status" class="form-label">Current Status: <?php echo htmlspecialchars($ticket['status']); ?></label>
             <select name="status" id="status" class="form-select" required>
                 <option value="pending" <?php echo ($ticket['status'] == 'pending') ? 'selected' : ''; ?>>Pending</option>
-                <option value="inprogress" <?php echo ($ticket['status'] == 'inprogress') ? 'selected' : ''; ?>>In progress</option>
-                <option value="onhold" <?php echo ($ticket['status'] == 'onhold') ? 'selected' : ''; ?>>On hold</option>
+                <option value="inprogress" <?php echo ($ticket['status'] == 'inprogress') ? 'selected' : ''; ?>>In Progress</option>
+                <option value="onhold" <?php echo ($ticket['status'] == 'onhold') ? 'selected' : ''; ?>>On Hold</option>
                 <option value="completed" <?php echo ($ticket['status'] == 'completed') ? 'selected' : ''; ?>>Completed</option>
             </select>
             <button type="submit" class="submit-btn">Update</button>

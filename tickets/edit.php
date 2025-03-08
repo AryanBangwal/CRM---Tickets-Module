@@ -17,12 +17,17 @@ if (!isset($_GET['id'])) {
     
 $ticket_id = $_GET['id'];
 
-$query = "SELECT * FROM tickets WHERE id = $ticket_id";
-$ticket_result = mysqli_query($conn, $query);
-$ticket = mysqli_fetch_assoc($ticket_result);
+$query = "SELECT * FROM tickets WHERE id = ? AND created_by= ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("ii", $ticket_id, $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$ticket = $result->fetch_assoc();
+$stmt->close();
 
 if (!$ticket) {
-    echo "<script>alert('Ticket not found or access denied'); window.location.href='view.php';</script>";
+    $_SESSION['error'] = "You are not authorized to view this ticket.";
+    header("Location: dashboard.php");
     exit();
 }
 

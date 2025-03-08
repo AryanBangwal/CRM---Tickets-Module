@@ -1,11 +1,24 @@
 <?php
 session_start();
+require_once '../utils/connection.php';
+
 if (!isset($_SESSION['user_id'])) {
     $_SESSION['error'] = "Please log in first.";
     header("Location: ../auth/login.html"); 
     exit();
 }
 
+$user_id = $_SESSION['user_id'];
+
+$query = "SELECT name FROM users WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+$stmt->close();
+
+$user_name = $user ? htmlspecialchars($user['name']) : "User"; 
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +33,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <div class="dashboard-container">
     <div class="dashboard-header">
-        <h1 class="dashboard-title">Welcome, <?php echo $_SESSION['user_email'];  ?>!</h1> <!--Note* need to display name instead if email -->
+        <h1 class="dashboard-title">Welcome, <?php echo $user_name; ?>!</h1>
         <p class="dashboard-subtext">Manage your tickets efficiently.</p>
     </div>
 
@@ -31,14 +44,12 @@ if (!isset($_SESSION['user_id'])) {
 
     <a id="logout" href="logout.php" class="logout-btn">Logout</a>
     <script>
-    document.getElementById("logout").addEventListener("click", function(event) 
-    {
-        if (!confirm("Are you sure you want to log out?")) 
-        {
+    document.getElementById("logout").addEventListener("click", function(event) {
+        if (!confirm("Are you sure you want to log out?")) {
             event.preventDefault(); 
         }
     });
-</script>
+    </script>
 </div>
 </body>
 </html>
