@@ -1,10 +1,13 @@
 <?php
-
 session_start();
 $uri=parse_url($_SERVER['REQUEST_URI'])['path'];
 
+if ($uri == '/')
+{
+    $uri = "login";
+}
+
 $routes = [
-    "/" => "auth/login.html",
     "dashboard" => "tickets/dashboard.php",
     "login" => "auth/login.html",
     "register" => "auth/register.php",
