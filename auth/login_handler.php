@@ -1,6 +1,8 @@
 <?php
-session_start(); 
-require_once '../utils/connection.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+} 
+require_once ROOT.'/utils/connection.php';
 $email = $_REQUEST['nemail'];
 $password = $_REQUEST['npass'];
 
@@ -17,18 +19,18 @@ if ($results->num_rows > 0)
         $_SESSION['user_email'] = $data['email'];
         $_SESSION['name'] = $data['name'];
 
-        echo "<script>window.location.href='../tickets/dashboard.php';</script>";
+        echo "<script>window.location.href='dashboard';</script>";
         exit();
     } 
     else 
     {
-        echo "<script>alert('Wrong credentials'); window.location.href='login.html';</script>";
+        echo "<script>alert('Wrong credentials'); window.location.href='login';</script>";
         exit();
     }
 } 
 else 
 {
-    echo "<script>alert('User not found'); window.location.href='login.html';</script>";
+    echo "<script>alert('User not found'); window.location.href='login';</script>";
     exit();
 }
 ?>

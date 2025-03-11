@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-require_once '../utils/connection.php';
+require_once ROOT.'/utils/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = mysqli_real_escape_string($conn, trim($_POST["fname"]));

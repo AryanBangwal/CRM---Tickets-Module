@@ -1,6 +1,8 @@
 <?php
-session_start();
-require_once '../utils/connection.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once ROOT.'/utils/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $ticket_id = $_POST['ticket_id'];
@@ -29,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $update_ticket_stmt->bind_param("ii", $assigned_to, $ticket_id);
     
     if ($update_ticket_stmt->execute()) {
-        echo "<script>alert('User assigned successfully!'); window.location.href='view.php';</script>";
+        echo "<script>alert('User assigned successfully!'); window.location.href='view';</script>";
     } else {
         echo "<script>alert('Error updating ticket assignee.'); window.history.back();</script>";
     }

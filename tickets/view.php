@@ -1,10 +1,12 @@
 <?php
-session_start();
-require_once '../utils/connection.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once ROOT.'/utils/connection.php';
 
 if (!isset($_SESSION['user_id'])) {
     $_SESSION['error'] = "Please log in first.";
-    header("Location: ../auth/login.html"); 
+    header("Location: login");
     exit();
 }
 
@@ -42,11 +44,11 @@ $user_stmt->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Tickets</title>
-    <link rel="stylesheet" href="view.css">
+    <link rel="stylesheet" href="./tickets/view.css">
     <link rel="stylesheet" href="../utils/navbar.css">
 </head>
 <body class="body">
-    <?php require_once '../utils/navbar.html'; ?>
+    <?php require_once ROOT.'/utils/navbar.html'; ?>
 
     <div class="container">
         <h3 class="sub-heading">Tickets Created by Me</h3>
@@ -81,8 +83,8 @@ $user_stmt->close();
                             <td><?php echo ucfirst($ticket['status']); ?></td>
                             <td><?php echo date("Y-m-d", strtotime($ticket['created_at'])); ?></td>
                             <td>
-                                <a href="edit.php?id=<?php echo $ticket['id']; ?>" class="edit-btn">Edit</a>
-                                <a href="assignment.php?id=<?php echo $ticket['id']; ?>" class="assign-btn">Assign</a>
+                                <a href="edit?id=<?php echo $ticket['id']; ?>" class="edit-btn">Edit</a>
+                                <a href="assignment?id=<?php echo $ticket['id']; ?>" class="assign-btn">Assign</a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -114,7 +116,7 @@ $user_stmt->close();
                         <td><?php echo ucfirst($ticket['status']); ?></td>
                         <td><?php echo date("Y-m-d", strtotime($ticket['created_at'])); ?></td>
                         <td>
-                            <a href="status.php?id=<?php echo $ticket['id']; ?>" class="status-btn">Update Status</a>
+                            <a href="status?id=<?php echo $ticket['id']; ?>" class="status-btn">Update Status</a>
                         </td>
                     </tr>
                 <?php } ?>

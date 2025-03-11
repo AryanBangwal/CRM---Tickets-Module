@@ -1,7 +1,9 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.html");
+    header("Location: login");
     exit();
 }
 ?>
@@ -21,7 +23,7 @@ if (!isset($_SESSION['user_id'])) {
     </style>
     <script>
         setTimeout(function() {
-            window.location.href = '../tickets/dashboard.php'; 
+            window.location.href = 'dashboard'; 
         }, 3000); 
     </script>
 </head>

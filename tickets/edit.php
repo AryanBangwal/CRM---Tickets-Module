@@ -1,17 +1,19 @@
 <?php
-session_start();
-require_once '../utils/connection.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once ROOT.'/utils/connection.php';
 
 if (!isset($_SESSION['user_id'])) {
     $_SESSION['error'] = "Please log in first.";
-    header("Location: ../auth/login.html"); 
+    header("Location: login");
     exit();
 }
 
 $user_id = $_SESSION['user_id'];
 
 if (!isset($_GET['id'])) {
-    echo "<script>alert('Invalid ticket ID'); window.location.href='view.php';</script>";
+    echo "<script>alert('Invalid ticket ID'); window.location.href='view';</script>";
     exit();
 }
     
@@ -27,7 +29,7 @@ $stmt->close();
 
 if (!$ticket) {
     $_SESSION['error'] = "You are not authorized to view this ticket.";
-    header("Location: dashboard.php");
+    header("Location: dashboard");
     exit();
 }
 
@@ -45,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     if ($conn->query($update_query) === TRUE) 
     {
-        echo "<script>alert('Ticket updated successfully'); window.location.href='view.php';</script>";
+        echo "<script>alert('Ticket updated successfully'); window.location.href='view';</script>";
     } 
     else 
     {
@@ -60,11 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Ticket</title>
-    <link rel="stylesheet" href="edit.css">
+    <link rel="stylesheet" href="./tickets/edit.css">
     <link rel="stylesheet" href="../utils/navbar.css">
 </head>
 <body class="body">
-<?php require_once '../utils/navbar2.html';
+<?php require_once ROOT.'/utils/navbar2.html';
     ?>
     <div class="container">
         <h2 class="heading">Edit Ticket</h2>

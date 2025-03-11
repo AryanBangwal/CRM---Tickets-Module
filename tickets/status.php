@@ -1,10 +1,12 @@
 <?php
-session_start();
-require_once '../utils/connection.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once ROOT.'/utils/connection.php';
 
 if (!isset($_SESSION['user_id'])) {
     $_SESSION['error'] = "Please log in first.";
-    header("Location: ../auth/login.html"); 
+    header("Location: login");
     exit();
 }
 
@@ -48,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $update_stmt->execute();
 
     if ($update_stmt->affected_rows >= 0) { 
-        header("Location: view.php");
+        header("Location: view");
         exit();
     } else {
         echo "<div class='error-message'>Error updating status.</div>";
@@ -63,12 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Ticket Status</title>
-    <link rel="stylesheet" href="status.css">
+    <link rel="stylesheet" href="./tickets/status.css">
     <link rel="stylesheet" href="../utils/navbar.css">
 </head>
 <body class="body-container">
 
-<?php require_once '../utils/navbar2.html'; ?>
+<?php require_once ROOT.'/utils/navbar2.html'; ?>
     <div class="form-container">
         <h2 class="form-heading">Update Ticket Status</h2>
         <p class="ticket-info"><strong>Ticket:</strong> <?php echo htmlspecialchars($ticket['name']); ?></p>

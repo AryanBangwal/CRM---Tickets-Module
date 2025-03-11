@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./auth/login.css">
+    <link rel="stylesheet" href="../auth/login.css">
     <link rel="stylesheet" href="../utils/utils.css">
     <title>Login Page</title>
 </head>
 <body class="body">
     <div>
-        <form id="registrationForm" class="forms" action="login_handler.php" method="post">
+        <form id="registrationForm" class="forms" action="login_handler" method="post">
             <div>
                 <div class="gap">
                     <label for="nemail" class="labels">Email:</label><br>
@@ -19,11 +19,10 @@
                     <label for="npass" class="labels">Password</label><br>
                     <input type="password" id="passLogin" name="npass" class="inputs"><br><br>
                 </div>
-                <p>Not Registered? <a href="registration.html">Register Now</a></p>
+                <p>Not Registered? <a href="registration">Register Now</a></p>
             </div>
             <button class="submitButton">Login</button>
         </form> 
     </div>
-    <script src="login.js"></script>
 </body>
 </html>

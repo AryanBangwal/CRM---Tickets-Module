@@ -1,10 +1,12 @@
 <?php
-session_start();
-require_once '../utils/connection.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once ROOT.'/utils/connection.php';
 
 if (!isset($_SESSION['user_id'])) {
     $_SESSION['error'] = "Please log in first.";
-    header("Location: ../auth/login.html"); 
+    header(sprintf("Location: %s/auth/login.html",ROOT)); 
     exit();
 }
 
@@ -27,7 +29,7 @@ $user_name = $user ? htmlspecialchars($user['name']) : "User";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="./tickets/dashboard.css">
 </head>
 <body class="body">
 
@@ -38,11 +40,11 @@ $user_name = $user ? htmlspecialchars($user['name']) : "User";
     </div>
 
     <div class="dashboard-actions">
-        <a href="create.php" class="dashboard-btn">Create a Ticket</a>
-        <a href="view.php" class="dashboard-btn">View Tickets</a>
+        <a href="create" class="dashboard-btn">Create a Ticket</a>
+        <a href="view" class="dashboard-btn">View Tickets</a>
     </div>
 
-    <a id="logout" href="logout.php" class="logout-btn">Logout</a>
+    <a id="logout" href="logout" class="logout-btn">Logout</a>
     <script>
     document.getElementById("logout").addEventListener("click", function(event) {
         if (!confirm("Are you sure you want to log out?")) {

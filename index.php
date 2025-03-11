@@ -1,4 +1,4 @@
 <?php
-// need to go to login.html when starting
+define("ROOT",$_SERVER['DOCUMENT_ROOT']);
 require 'router.php';
 ?>
