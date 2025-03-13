@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $password = trim($_POST["npass"]); 
     if (empty($name) || empty($email) || empty($password)) {
         echo "Cannot be empty";
-        echo '<a href="registration.html">Try again</a>';
+        echo '<a href="registration">Try again</a>';
         exit();
     }
 
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $query_check_both ="SELECT id FROM users WHERE name= '$name' AND email = '$email'";
     $result_both = mysqli_query($conn, $query_check_both);
     if (mysqli_num_rows($result_both) > 0) {
-        ?><script>alert("Name and email already exists.");window.location.href='registration.html'</script>
+        ?><script>alert("Name and email already exists.");window.location.href='registration'</script>
         <?php
         exit();
     }
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result_email = mysqli_query($conn, $query_check_email);
 
     if (mysqli_num_rows($result_email) > 0) {
-        ?><script>alert("Email already exists.");window.location.href='registration.html'</script>
+        ?><script>alert("Email already exists.");window.location.href='registration'</script>
         <?php
         exit();
     }
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (mysqli_num_rows($result_name) > 0) {
        
-        ?><script>alert("Name already exists.");window.location.href='registration.html'</script>
+        ?><script>alert("Name already exists.");window.location.href='registration'</script>
         <?php
         exit();
     }
@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['user_email'] = $email;
         $_SESSION['name'] = $name;
     
-        header("Location: ./success.php");
+        header("Location: success");
         exit();
     }
     else {

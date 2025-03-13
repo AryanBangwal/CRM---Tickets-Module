@@ -21,6 +21,7 @@ $routes = [
     "status" => "tickets/status.php",
     "view" => "tickets/view.php",
     "login_handler" => "auth/login_handler.php",
+    "registration_handler" => "auth/registration_handler.php",
     "assignment_handler" => "tickets/assignment_handler.php",
     "logout" => "tickets/logout.php",
 ];
