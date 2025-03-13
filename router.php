@@ -30,7 +30,7 @@ function routeToController($uri, $routes) {
     $protectedRoutes = ["dashboard", "assignment", "create", "edit", "status", "view"];
 
     if (in_array($uri, $protectedRoutes) && !isset($_SESSION['user_id'])) {
-        require "login";
+        header("Location: login");
         exit(); 
     }
 
