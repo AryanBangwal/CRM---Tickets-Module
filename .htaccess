@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Preserve HTTP Authorization header
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+RewriteBase /
+
+# Ignore requests for CSS and JS files
+RewriteCond %{REQUEST_URI} !\.(css|js)$ [NC]
+
+# Route all other requests through index.php
+RewriteRule ^ index.php [L]

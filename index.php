@@ -1,4 +1,4 @@
-<?php 
-header("Location: ./auth/registration.html");
-die();
+<?php
+define("ROOT",$_SERVER['DOCUMENT_ROOT']);
+require 'router.php';
 ?>
