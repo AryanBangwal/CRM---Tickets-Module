@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="./auth/registration.css">
     <link rel="stylesheet" href="../utils/utils.css">
     <title>Registration Page</title>
 </head>
 <body class="body">
     <div>
-        <form action="registration_handler.php" method="post" id="registrationForm" class="forms">
+        <form action="registration_handler" method="post" id="registrationForm" class="form">
             <div>
                 <div>
                     <label for="fname" class="labels">First name:</label><br>
@@ -17,17 +17,17 @@
                 </div>
                 <div class="gap">
                     <label for="nemail" class="labels">Email:</label><br>
-                    <input type="email" id="emails" name="nemail" class="inputs"><br><br>
+                    <input type="email" id="email" name="nemail" class="inputs"><br><br>
                 </div>
                 <div class="gap">
                     <label for="npass" class="labels">Password</label><br>
                     <input type="password" id="pass" name="npass" class="inputs"><br><br>
                 </div>
-                <p>Already Registered?? <a href="login.html">Login</a></p>
+                <p>Already Registered?? <a href="login">Login</a></p>
             </div>
-            <button id="registrationSubmit" class="submit-button" type="submit">Register</button>
+            <button id="registrationSubmit" class="submitButton" type="submit">Register</button>
         </form> 
     </div>
-    <script src="registration.js"></script>
+    <script src="/auth/registration.js"></script>
 </body>
 </html>
