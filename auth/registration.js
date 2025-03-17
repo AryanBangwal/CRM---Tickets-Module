@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     submitButton.addEventListener("click", function (event) {
         event.preventDefault();
         const name = document.getElementById("names").value.trim();
-        const email = document.getElementById("emails").value.trim();
+        const email = document.getElementById("email").value.trim();
         const password = document.getElementById("pass").value;
 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
