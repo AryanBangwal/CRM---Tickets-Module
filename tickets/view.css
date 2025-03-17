@@ -1,5 +1,11 @@
+.container {
+    width: 100%;
+    overflow-x: auto; 
+}
+
 .ticket-table {
     width: 100%;
+    min-width: 600px;
     border-collapse: collapse;
     margin-top: 20px;
     background: white;
@@ -11,6 +17,7 @@
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    white-space: nowrap; 
 }
 
 .ticket-table th {
@@ -22,13 +29,14 @@
     background-color: #f1f1f1;
 }
 
-
 .create-ticket-btn, .edit-btn, .status-btn, .assign-btn {
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 14px;
+    display: inline-block;
 }
+
 .no-data {
     text-align: center;
     font-style: italic;
@@ -38,7 +46,6 @@
 .create-ticket-btn {
     background-color: green;
     color: white;
-    display: inline-block;
     margin-bottom: 10px;
 }
 
@@ -49,4 +56,14 @@
 .create-ticket-btn:hover { background-color: darkgreen; }
 .edit-btn:hover { background-color: darkorange; }
 .status-btn:hover { background-color: darkblue; }
-.assign-btn:hover { background-color: darkpurple; }
+.assign-btn:hover { background-color: #4B0082; } 
+
+@media screen and (max-width: 600px) {
+    .ticket-table {
+        min-width: 100%; 
+    }
+
+    .ticket-table th, .ticket-table td {
+        font-size: 14px; 
+    }
+}
