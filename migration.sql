@@ -1,3 +1,4 @@
+-- Users Table
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -7,6 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
+-- Tickets Table
 CREATE TABLE IF NOT EXISTS tickets (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -19,6 +21,7 @@ CREATE TABLE IF NOT EXISTS tickets (
     deleted_at TIMESTAMP
 );
 
+-- Assignments Table
 CREATE TABLE IF NOT EXISTS assignments (
     id SERIAL PRIMARY KEY,
     ticket_id INT REFERENCES tickets(id) ON DELETE CASCADE,
@@ -27,6 +30,7 @@ CREATE TABLE IF NOT EXISTS assignments (
     UNIQUE (ticket_id, assigned_to)
 );
 
+-- Track Missing Fields in Tickets
 CREATE TABLE IF NOT EXISTS ticket_missing_fields (
     id SERIAL PRIMARY KEY,
     ticket_id INT REFERENCES tickets(id) ON DELETE CASCADE,
@@ -34,5 +38,17 @@ CREATE TABLE IF NOT EXISTS ticket_missing_fields (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
+
+-- Alter
+-- Alter Table users drop column role;
+
+-- Alter table tickets add new column
 ALTER TABLE tickets 
 ADD COLUMN assignee_id INT REFERENCES users(id) ON DELETE SET NULL AFTER description;
+
+
+
+
+
+
+
